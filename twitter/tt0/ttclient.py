@@ -6,19 +6,47 @@
 
 import zmq
 
-context = zmq.Context()
+from ttclientpubsub import ClientPubSub
 
-#  Socket to talk to server
-print("Connecting to hello world server...")
-socket = context.socket(zmq.REQ)
-host = "tcp://localhost:5556"
-host = "tcp://0.tcp.sa.ngrok.io:19050"
-socket.connect(host)
+# context = zmq.Context()
+
+# #  Socket to talk to server
+# print("Connecting to hello world server...")
+# socket = context.socket(zmq.REQ)
+# host = "tcp://localhost:5557"
+# #host = "tcp://0.tcp.sa.ngrok.io:19050"
+# socket.connect(host)
 
 
-while True:
-    message = input()
-    socket.send_string(message)
+# while True:
+#     message = input()
+#     socket.send_string(message)
 
-    reply = socket.recv()
-    print(reply)
+#     reply = socket.recv()
+#     print("SERVER RESPONSE: ", reply)
+
+
+class Client:
+    def __init__(self) -> None:
+        self.context = zmq.Context()
+        self.client_pubsub = ClientPubSub()
+        #  Socket to talk to server
+        print("Connecting to hello world server...")
+        self.socket = self.context.socket(zmq.REQ)
+        self.host = "tcp://localhost:5557"
+        # host = "tcp://0.tcp.sa.ngrok.io:19050"
+        self.socket.connect(self.host)
+
+    def run(self):
+        while True:
+            message = input()
+            self.socket.send_string(message)
+
+            reply = self.socket.recv()
+            print("SERVER RESPONSE: ", reply)
+            self.client_pubsub.run()
+
+
+if __name__ == "__main__":
+    server = Client()
+    server.run()
