@@ -26,11 +26,21 @@ def follow(user, other):
     return f"{user} seguindo {other}"
 
 
+def followers(username):
+    return REPO.get_masters(username)
+
+
 def read(user):
     return "\n".join(f"{t.user}: {t.msg}" for t in REPO.get_tweets_from(user))
 
 
-COMMANDS = dict(signup=signup, tweet=tweet, follow=follow, read=read)
+COMMANDS = dict(
+    signup=signup,
+    tweet=tweet,
+    follow=follow,
+    read=read,
+    followers=followers,
+)
 
 
 class Server:
@@ -49,12 +59,21 @@ class Server:
             reply = "\n"
 
             try:
+                # import ipdb
+
+                # ipdb.set_trace()
+
                 cmd, user, *arg = message.decode("utf-8").split(" ", maxsplit=2)
                 command = COMMANDS[cmd]
                 reply = command(user, *arg)
 
                 if cmd == "tweet":
                     self.pubsub.send_tweet(user, reply)
+                elif cmd == "followers":
+                    if reply:
+                        reply = ",".join(reply)
+                    else:
+                        reply = ""
 
             except Exception as e:
                 reply = "ERRO: " + str(e)

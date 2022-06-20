@@ -6,8 +6,6 @@
 
 import zmq
 
-from ttclientpubsub import ClientPubSub
-
 # context = zmq.Context()
 
 # #  Socket to talk to server
@@ -29,7 +27,6 @@ from ttclientpubsub import ClientPubSub
 class Client:
     def __init__(self) -> None:
         self.context = zmq.Context()
-        self.client_pubsub = ClientPubSub()
         #  Socket to talk to server
         print("Connecting to hello world server...")
         self.socket = self.context.socket(zmq.REQ)
@@ -39,12 +36,22 @@ class Client:
 
     def run(self):
         while True:
+            # Send command to server
             message = input()
             self.socket.send_string(message)
-
             reply = self.socket.recv()
             print("SERVER RESPONSE: ", reply)
-            self.client_pubsub.run()
+
+            # Recebe os tweets da galera
+            # self.client_pubsub.run()
+    
+    def signup(self, username):
+        self.socket.send_string(f'signup {username}')
+        return self.socket.recv()
+    
+    def followers(self, username):
+        self.socket.send_string(f'followers {username}')
+        return self.socket.recv()
 
 
 if __name__ == "__main__":

@@ -22,24 +22,45 @@ import zmq
 # for follow in followers:
 #     if string.startswith(follow):
 #         print(string)
+from ttclient import Client
 
 
 class ClientPubSub:
     def __init__(self) -> None:
+
         #  Socket to talk to server
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.SUB)
 
-        print("Collecting updates from weather server...")
         self.socket.connect("tcp://localhost:5554")
         self.followers = ["@greg", "@handboy"]
         self.followers_filter = ""
 
+        self.client = Client()
+
     def run(self):
-        self.socket.setsockopt_string(zmq.SUBSCRIBE, self.followers_filter)
+        # singup
+        # get followers
+        user = input("Login: ")
+        self.client.signup(user)
+        print("Collecting updates from twitter pubsub...")
+        self.followers = self.client.followers(user)
+        if self.followers:
+            self.followers = self.followers.decode().split(",")
+        # import ipdb
 
-        string = self.socket.recv_string()
+        # ipdb.set_trace()
+        print(self.followers)
+        while True:
+            self.socket.setsockopt_string(zmq.SUBSCRIBE, self.followers_filter)
 
-        for follow in self.followers:
-            if string.startswith(follow):
-                print(string)
+            string = self.socket.recv_string()
+
+            for follow in self.followers:
+                if string.startswith(f'@{follow}'):
+                    print(string)
+
+
+if __name__ == "__main__":
+    server = ClientPubSub()
+    server.run()
