@@ -30,7 +30,7 @@ Connecting to hello world server...
 
 ## Install
 ```
-$ python3 -m venv pds-micro
-$ souce pds-micro/bin/activate
+$ python3 -m venv .venv
+$ souce .venv/bin/activate
 $ pip install -r requirements.txt 
 ```
