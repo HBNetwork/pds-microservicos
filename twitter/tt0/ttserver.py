@@ -59,10 +59,6 @@ class Server:
             reply = "\n"
 
             try:
-                # import ipdb
-
-                # ipdb.set_trace()
-
                 cmd, user, *arg = message.decode("utf-8").split(" ", maxsplit=2)
                 command = COMMANDS[cmd]
                 reply = command(user, *arg)

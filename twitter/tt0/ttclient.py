@@ -42,15 +42,12 @@ class Client:
             reply = self.socket.recv()
             print("SERVER RESPONSE: ", reply)
 
-            # Recebe os tweets da galera
-            # self.client_pubsub.run()
-    
     def signup(self, username):
-        self.socket.send_string(f'signup {username}')
+        self.socket.send_string(f"signup {username}")
         return self.socket.recv()
-    
+
     def followers(self, username):
-        self.socket.send_string(f'followers {username}')
+        self.socket.send_string(f"followers {username}")
         return self.socket.recv()
 
 

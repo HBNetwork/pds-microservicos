@@ -33,7 +33,7 @@ class ClientPubSub:
         self.socket = self.context.socket(zmq.SUB)
 
         self.socket.connect("tcp://localhost:5554")
-        self.followers = ["@greg", "@handboy"]
+        self.followers = []
         self.followers_filter = ""
 
         self.client = Client()
@@ -47,10 +47,7 @@ class ClientPubSub:
         self.followers = self.client.followers(user)
         if self.followers:
             self.followers = self.followers.decode().split(",")
-        # import ipdb
 
-        # ipdb.set_trace()
-        print(self.followers)
         while True:
             self.socket.setsockopt_string(zmq.SUBSCRIBE, self.followers_filter)
 
