@@ -3,15 +3,13 @@
 ## DOCS
 
 ## TODO
-[] Refatorar o desenvolvimento da implementação feito em aula
-    [] Trocar dataclass por namedtuple
-[] Evoluir a proposta desenvolvida como a implementação de pub/sub (Cap 2 do ZeeroMQ)
-[] Gerar scripts para simular teste de carga.
-[] Um serviço de load balance
-[] Recurso para contabilizar as estatísticas trabsacionadas pelo server
-[] Estruturar Review: 
-    O que foi bom...
-    O que aprendemos e podemos compartilhar com a galera
+- [] Refatorar o desenvolvimento da implementação feito em aula
+    - [] Trocar dataclass por namedtuple
+- [] Evoluir a proposta desenvolvida como a implementação de pub/sub (Cap 2 do ZeeroMQ)
+- [] Gerar scripts para simular teste de carga.
+- [] Um serviço de load balance
+- [] Recurso para contabilizar as estatísticas trabsacionadas pelo server
+- [] Estruturar Review: O que foi bom, O que aprendemos e podemos compartilhar com a galera
 
 ## Tips
 ```
