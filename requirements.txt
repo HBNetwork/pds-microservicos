@@ -1,0 +1,5 @@
+ipdb==0.13.9 
+pytest==7.1.2
+pytest-mock==3.7.0
+pytest-watch==4.2.0
+pyzmq==23.1.0
