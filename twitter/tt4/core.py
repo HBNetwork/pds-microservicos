@@ -63,6 +63,9 @@ class Repository:
     def get_masters(self, user):
         return self.users[user][FOLLOWING]
 
+    def get_users(self):
+        return self.users.keys()
+
 
 def post_tweet(user, msg):
     return Tweet(user, msg)
@@ -96,6 +99,9 @@ class Commands:
     def read(self, user):
         return "\n".join(
             f"{t.user}: {t.msg}" for t in self.repo.get_tweets_from(user))
+
+    def listusers(self, _):
+        return "\n".join(self.repo.get_users())
 
     def __call__(self, cmd, user, *arg):
         command = getattr(self, cmd)

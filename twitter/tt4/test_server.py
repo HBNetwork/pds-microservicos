@@ -6,13 +6,20 @@ from .core import (
     MSGS,
     Repository,
     Tweet,
-    get_tweet,
-    post_tweet,
+    commands
 )
 
-from . import factories
+from tt4 import factories
 
 
+def test_listusers():
+    for user in "abcd":
+        commands.signup(user)
+
+    assert commands.listusers() == "a\nb\nc\nd"
+
+
+# TODO: Faz essa bagaça direito.
 def test_repository(mocker):
     repo = Repository()
 
@@ -46,7 +53,7 @@ def test_get_tweet(mocker):
     _now = mocker.spy(factories, "now")
     id = factories.uuid()
 
-    t = get_tweet(id)
+    t = commands.get_tweet(id)
 
     assert vars(t) == dict(
         user="henriquebastos",
@@ -61,7 +68,7 @@ def test_post_tweet(mocker):
     _now = mocker.spy(factories, "now")
     _uuid = mocker.spy(factories, "uuid")
 
-    t = post_tweet("henriquebastos", "Olá, Mundo!")
+    t = commands.post_tweet("henriquebastos", "Olá, Mundo!")
 
     assert vars(t) == dict(
         user="henriquebastos",
