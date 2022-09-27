@@ -44,7 +44,7 @@ while True:
         reply = command(user, *arg)
         print(reply)
     except Exception as e:
-        reply = "ERRO: " + str(e)
+        reply = f"ERRO: {str(e)}"
     #  Do some 'work'
     time.sleep(0.01)
 

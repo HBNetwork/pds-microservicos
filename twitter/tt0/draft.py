@@ -40,7 +40,7 @@ class Repository:
         if user in self.users:
             raise ValueError("Já tem, mané!")
 
-        self.users[user] = {MSGS: list(), FOLLOWING: set()}
+        self.users[user] = {MSGS: [], FOLLOWING: set()}
 
     def add_tweet(self, tweet):
         if tweet.user not in self.users:
@@ -61,7 +61,7 @@ class Repository:
         self.users[user][FOLLOWING].add(other)
 
     def get_tweets_from(self, user):
-        if not user in self.users:
+        if user not in self.users:
             raise ValueError("Sei quem é não.")
 
         return self.users[user][MSGS]

@@ -31,8 +31,7 @@ random.seed()
 
 # Send 100 tasks
 total_msec = 0
-for task_nbr in range(100):
-
+for _ in range(100):
     # Random workload from 1 to 100 msecs
     workload = random.randint(1, 100)
     total_msec += workload

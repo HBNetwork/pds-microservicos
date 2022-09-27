@@ -48,12 +48,11 @@ class Bot:
         cmd, *arg = message.split(' ', maxsplit=1)
         command = ' '.join([cmd, self.user, *arg])
         self.req.send_string(command)
-        reply = self.req.recv().decode()
-        return reply
+        return self.req.recv().decode()
 
     def signup(self, username):
         self.user = username
-        reply = self.send_command(f"signup")
+        reply = self.send_command("signup")
         self.subscribe(username)
         return reply
 
@@ -97,6 +96,6 @@ if __name__ == "__main__":
         client.subscribe(user)
 
     for count in range(tts):
-        for msg in client.read_tweets():
+        for _ in client.read_tweets():
             pass #print(msg)
         client.send_command(f"tweet Msg {count}.")

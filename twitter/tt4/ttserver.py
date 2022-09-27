@@ -27,13 +27,9 @@ def server(commands):
             if cmd == "tweet":
                 pub.send_string(f"@{user} {message}")
             elif cmd == "followers":
-                if reply:
-                    reply = ",".join(reply)
-                else:
-                    reply = ""
-
+                reply = ",".join(reply) if reply else ""
         except Exception as e:
-            reply = "ERRO: " + str(e)
+            reply = f"ERRO: {str(e)}"
 
         rep.send_string(reply)
 

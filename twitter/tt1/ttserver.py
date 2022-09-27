@@ -66,13 +66,9 @@ class Server:
                 if cmd == "tweet":
                     self.pubsub.send_tweet(user, reply)
                 elif cmd == "followers":
-                    if reply:
-                        reply = ",".join(reply)
-                    else:
-                        reply = ""
-
+                    reply = ",".join(reply) if reply else ""
             except Exception as e:
-                reply = "ERRO: " + str(e)
+                reply = f"ERRO: {str(e)}"
             #  Do some 'work'
             time.sleep(0.01)
 
